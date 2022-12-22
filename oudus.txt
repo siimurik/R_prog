@@ -1,0 +1,225 @@
+Üldistatud lineaarsed mudelid
+glm(mudel, family=)
+andmed=read.table(file.choose(),header=TRUE,sep="\t",dec=",")
+attach(andmed)
+
+
+
+Logistiline mudel
+mudel1=glm(arvest~ryhm+kinga_nr+pikkus, family="binomial")
+summary(mudel1)
+Call:
+glm(formula = arvest ~ ryhm + kinga_nr + pikkus, family = "binomial")
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.1342  -0.7394  -0.6245   1.2414   1.9421  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)  
+(Intercept) -22.6245    30.5520  -0.741   0.4590  
+ryhm          1.0330     0.4870   2.121   0.0339 *
+kinga_nr     -0.1857     0.2419  -0.767   0.4428  
+pikkus        0.1713     0.2290   0.748   0.4544  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 116.65  on 99  degrees of freedom
+Residual deviance: 110.38  on 96  degrees of freedom
+AIC: 118.38
+
+Number of Fisher Scoring iterations: 4
+
+
+mudel2=glm(arvest~ryhm+kinga_nr+pikkus, family="binomial")
+summary(mudel2)
+Call:
+glm(formula = arvest ~ ryhm + kinga_nr + pikkus, family = "binomial")
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.1342  -0.7394  -0.6245   1.2414   1.9421  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)  
+(Intercept) -22.6245    30.5520  -0.741   0.4590  
+ryhm          1.0330     0.4870   2.121   0.0339 *
+kinga_nr     -0.1857     0.2419  -0.767   0.4428  
+pikkus        0.1713     0.2290   0.748   0.4544  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 116.65  on 99  degrees of freedom
+Residual deviance: 110.38  on 96  degrees of freedom
+AIC: 118.38
+
+Number of Fisher Scoring iterations: 4
+
+mudel3=glm(arvest~kinga_nr+pikkus, family="binomial")
+summary(mudel3)
+
+mudel4=glm(cbind(test, max_punktid-test)~ryhm+kinga_nr+pikkus, family="binomial")
+Call:
+glm(formula = cbind(test, max_punktid - test) ~ ryhm + kinga_nr + 
+    pikkus, family = "binomial")
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-5.6569  -1.2925   0.0792   1.1835   4.7592  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)   
+(Intercept) -2.22483    2.71809  -0.819  0.41306   
+ryhm         0.12403    0.04302   2.883  0.00394 **
+kinga_nr    -0.01106    0.02067  -0.535  0.59242   
+pikkus       0.01563    0.02005   0.780  0.43560   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 382.01  on 99  degrees of freedom
+Residual deviance: 370.57  on 96  degrees of freedom
+AIC: 880.77
+
+Number of Fisher Scoring iterations: 3
+
+Faktoranalüüs
+//Peipsi.txt
+andmed2=read.table(file.choose(),header=TRUE,sep="\t",dec=",")
+attach(andmed2)
+andmed2
+
+//kymnev.txt
+andmed3=read.table(file.choose(),header=TRUE,sep="\t",dec=",")
+attach(andmed3)
+andmed3
+
+Faktoranalüüs Peipsi järvele
+factanal(andmed2, factors=2)
+
+Call:
+factanal(x = andmed2, factors = 2)
+
+Uniquenesses:
+   CY   BAC   CHL   DIP   DOP    SI   DIN   DON 
+0.910 0.887 0.930 0.251 0.005 0.005 0.854 0.735 
+
+Loadings:			//(Maatriks A)
+    Factor1 Factor2
+CY   0.287         
+BAC  0.322         
+CHL  0.224   0.140 
+DIP  0.856   0.126 
+DOP  0.997         
+SI           0.995 
+DIN          0.378 
+DON  0.514         
+
+               Factor1 Factor2
+SS loadings      2.235   1.186
+Proportion Var   0.279   0.148
+Cumulative Var   0.279   0.428
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 39.27 on 13 degrees of freedom.
+The p-value is 0.000181
+
+factanal(andmed2,factors=3)
+////
+Call:
+factanal(x = andmed2, factors = 3)
+
+Uniquenesses:
+   CY   BAC   CHL   DIP   DOP    SI   DIN   DON 
+0.005 0.848 0.914 0.233 0.005 0.005 0.844 0.727 
+
+Loadings:
+    Factor1 Factor2 Factor3
+CY          -0.167   0.981 
+BAC  0.358          -0.128 
+CHL  0.189   0.125   0.187 
+DIP  0.864   0.120         
+DOP  0.971           0.225 
+SI           0.991         
+DIN          0.386         
+DON  0.480           0.206 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.094   1.196   1.129
+Proportion Var   0.262   0.150   0.141
+Cumulative Var   0.262   0.411   0.552
+
+Test of the hypothesis that 3 factors are sufficient.
+The chi square statistic is 15.41 on 7 degrees of freedom.
+The p-value is 0.0311 
+
+Ortogonaalne pööramine 3-faktorilisele mudelile
+factanal(andmed3,factors=3,rotation=promax)
+
+Faktoranlüüs korrelatsioonimaatriksi R baasil
+
+x=cbind(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10)
+ability.cov=x
+factanal(factors=3,covmat=ability.cov)
+
+Call:
+factanal(factors = 3, covmat = ability.cov)
+
+Uniquenesses:
+   v1    v2    v3    v4    v5    v6    v7    v8    v9   v10 
+0.005 0.484 0.149 0.656 0.339 0.694 0.397 0.778 0.767 0.511 
+
+Loadings:
+      Factor1 Factor2 Factor3
+ [1,]  0.975   0.146  -0.151 
+ [2,]  0.586   0.354   0.218 
+ [3,]  0.215   0.895         
+ [4,]  0.340   0.372   0.300 
+ [5,]  0.700           0.409 
+ [6,]  0.386   0.354   0.180 
+ [7,]  0.170   0.757         
+ [8,]  0.212   0.278   0.315 
+ [9,]          0.473         
+[10,]                  0.695 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.174   2.092   0.953
+Proportion Var   0.217   0.209   0.095
+Cumulative Var   0.217   0.427   0.522
+
+The degrees of freedom for the model is 18 and the fit was 0.3815
+
+////
+
+factanal(factors=4,covmat=ability.cov)
+Call:
+factanal(factors = 4, covmat = ability.cov)
+
+Uniquenesses:
+   v1    v2    v3    v4    v5    v6    v7    v8    v9   v10 
+0.159 0.379 0.005 0.499 0.328 0.539 0.462 0.699 0.795 0.005 
+
+Loadings:
+      Factor1 Factor2 Factor3 Factor4
+ [1,]  0.167   0.857   0.246  -0.138 
+ [2,]  0.239   0.476   0.581         
+ [3,]  0.963   0.153   0.201         
+ [4,]  0.242   0.172   0.632   0.113 
+ [5,]          0.710   0.236   0.331 
+ [6,]  0.205   0.261   0.588         
+ [7,]  0.699   0.133   0.179         
+ [8,]  0.138           0.512   0.117 
+ [9,]  0.418           0.175         
+[10,]                  0.113   0.988 
+
+               Factor1 Factor2 Factor3 Factor4
+SS loadings      1.801   1.613   1.578   1.140
+Proportion Var   0.180   0.161   0.158   0.114
+Cumulative Var   0.180   0.341   0.499   0.613
+
+The degrees of freedom for the model is 11 and the fit was 0.0696 

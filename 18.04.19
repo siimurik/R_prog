@@ -1,0 +1,119 @@
+Bootsstrap R keskkonnas
+install.packages("BootBCa")
+BCa meetod (Nihke ja asümmeetria parand)
+BCa(x, NA, mean, alpha=c(0.025, 0.975), M=1000)
+x-toorandmed, NA - täpsus, mean, median või var, alpha=c(0.025,0.975)=0.95 usaldusintervall, M-bootstrap valimite hulk
+
+Empiiriliselt korduv simuleerimine
+x=c(4,7,15,3,11,6,9)
+y=0
+for (i in 1:1000)
+y[i]=mean(sample(x, length(x), replace=TRUE, prob=NULL))
+u=quantile(y,0.025)
+U=quantile(y,0.975)
+//asenda hiljem sellega
+x=c(4,7,29,3,11,6,9)
+y=0
+for (i in 1:1000)
+y[i]=mean(sample(x, length(x), replace=TRUE, prob=NULL))
+u=quantile(y,0.025)
+
+Permutatsioonitest (t-test mitteparameetriline analoog)
+install.packages("perm")
+x=c(94,56,78,43,60,18,29)
+y=c(44,26,97,35,10,71)
+DV=c(x,y)
+IV=factor(rep(c("x","y"),c(length(x),length(y))))
+permTS(DV~IV,exact=TRUE)
+
+	Exact Permutation Test (network algorithm)
+
+data:  DV by IV
+p-value = 0.6841
+alternative hypothesis: true mean IV=x - mean IV=y is not equal to 0
+sample estimates:
+mean IV=x - mean IV=y 
+             6.833333 
+
+//ei suutnud H0 hüpoteesi (DV~IV) ümber lükata
+
+Friedmanni test
+andmed=read.table(file.choose(),header=TRUE,sep="\t",dec=",")
+attach(andmed)
+//Tahetakse kontollida 3 laeva vastupidavust. Mõõdetakse 10 metallitüübi korrosiooniastet peale merereisi
+H0: Laevade vastupidavused on võrdsed 
+H1: Laevade vastupidavused ei ole võrdsed
+friedman.test(Aste~Laev|Metall,data=andmed)
+
+	Friedman rank sum test
+
+data:  Aste and Laev and Metall
+Friedman chi-squared = 8.0513, df = 2, p-value = 0.01785
+//ehk laevad ei ole võrdsed
+
+Wilcoxoni test
+wilcox.test(x, y = NULL,
+            alternative = c("two.sided", "less", "greater"),
+            mu = 0, paired = FALSE, exact = NULL, correct = TRUE,
+            conf.int = FALSE, conf.level = 0.95, ...)
+
+wilcox.test(x, y, paired=FALSE)
+
+	Wilcoxon rank sum test
+
+data:  x and y
+W = 24, p-value = 0.7308
+alternative hypothesis: true location shift is not equal to 0
+
+Jaotuste lähendamine
+Tuuma hinnang
+Kernal Density Estimation
+density(x, ...)
+## Default S3 method:
+density(x, bw = "nrd0", adjust = 1,
+        kernel = c("gaussian", "epanechnikov", "rectangular",
+                   "triangular", "biweight",
+                   "cosine", "optcosine"),
+        weights = NULL, window = kernel, width,
+        give.Rkern = FALSE,
+        n = 512, from, to, cut = 3, na.rm = FALSE, ...)
+
+u=density(x, kernel=c("gaussian"))
+Call:
+	density.default(x = x, kernel = c("gaussian"))
+
+Data: x (7 obs.);	Bandwidth 'bw' = 15.02
+
+       x                y            
+ Min.   :-27.06   Min.   :4.363e-05  
+ 1st Qu.: 14.47   1st Qu.:1.195e-03  
+ Median : 56.00   Median :6.095e-03  
+ Mean   : 56.00   Mean   :6.012e-03  
+ 3rd Qu.: 97.53   3rd Qu.:1.048e-02  
+ Max.   :139.06   Max.   :1.253e-02  
+ 
+plot(u)
+
+Normaaljaotuse mõju eksponentjaotusele
+x=rexp(100)
+u=density(x, kernel=c("gaussian"))
+plot(u)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

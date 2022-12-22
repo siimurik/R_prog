@@ -1,0 +1,19 @@
+IQ mudel
+
+x=c(135,140,151,78,81,101)
+andmed=cbind(x)
+N=nrow(andmed)
+data=list("N","x")
+
+inits=function()(list=(mu<-rnorm(1,100,17))
+
+iq=bugs(data,inits,file.choose(), parameters=c("mu","tau"),n.chains=2,n.iter=1000,debug=TRUE)
+
+inits=function()(list(mu<-rnorm(1,100,17),tau<-rgamma(1,10,2))
+
+library(rstan)
+//Kopeerida pumbad_stan.txt R-i
+//Kopeerida stohmod_stan.txt R-i
+
+Raha mudel
+//Kopeerida Metropolis.tx R-i

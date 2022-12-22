@@ -1,0 +1,73 @@
+BUGS 
+Mudel: Pumbad
+
+model
+{
+for (i in 1:N) {
+theta[i]~dgamma(alpha,beta)
+lambda[i]<-theta[i]*t[i]
+x[i]~dpois(lambda[i])
+}
+alpha~dexp(1)
+beta~dgamma(0.1,1.0)
+}
+
+//Mudel peaks olema salvestatud kindlasse kohta
+
+install.packages("R2OpenBUGS")
+library(R2OpenBugs)
+
+Andmete sisselugemine
+t=c(94.3,15.7,62.9,126,5.24,31.4,1.05,1.05,2.1,10.5)
+x=c(5,1,5,14,3,19,1,1,4,22)
+N=10
+data=list("t","x","N")
+
+Juhusliku suuruse (uuritava parameetri) theta eeljaotuse parameetritele alpha ja beta algväärtuste andmine
+
+inits=function()(list(alpha=rexp(1), beta=rgamma(1,0.1,1)))
+
+Modelleerimine
+
+lin.sim=bugs(data,inits,model.file="",parameters=c("alpha","beta","theta"),n.chains=2,n.iter=1000,debug=TRUE)
+
+Lineaarne regressioon
+
+model
+	{
+		for( i in 1 : N ) {
+			Y[i] ~ dnorm(mu[i],tau)
+			mu[i] <- alpha + beta * (x[i] - xbar)
+		}
+		tau ~ dgamma(0.001, 0.001) sigma <- 1 / sqrt(tau)
+		alpha ~ dnorm(0.0,1.0E-6)
+		beta ~ dnorm(0.0,1.0E-6)	
+	}
+	
+	
+Y=c(-0.01,0.1,0,0,0.002)
+X=c(12,11,9,6,4)
+xbar=mean(X)
+N=length(X)
+data=list("X","Y","xbar","N")
+
+Algväärtused parameetritele alpha, beta ja tau
+
+inits=function()(list(alpha=rnorm(1,0,1.0e-6),beta=rnorm(1,0,1.0e-6),tau=rgamma(1,0.001,0.001)))
+
+Modelleerimine
+
+lin.sim=bugs(data,inits,model.file="",parameters=c("alpha","beta","tau"),n.chains=2,n.iter=1000,debug=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+

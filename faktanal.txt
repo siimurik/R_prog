@@ -1,0 +1,52 @@
+Faktoranalüüs
+
+Ülesanne: kas kõik 7 sensorit mõõdavad sama asja?
+
+andmed=read.table(file.choose(),header=TRUE,sep="\t",dec=",")
+attach(andmed)
+andmed
+
+x=cbind(GLT1,GLT2,GLT3,CLT4,CLT5,CLT6,CLT7)
+
+factanal(x, factors=3)
+
+> factanal(x,factors = 3)
+
+Call:
+factanal(x = x, factors = 3)
+
+Uniquenesses:
+ GLT1  GLT2  GLT3  CLT4  CLT5  CLT6  CLT7 
+0.005 0.005 0.009 0.010 0.682 0.005 0.093 
+
+Loadings:
+     Factor1 Factor2 Factor3
+GLT1  0.940   0.252   0.217 
+GLT2  0.901   0.424         
+GLT3  0.890   0.376   0.241 
+CLT4  0.927   0.321   0.166 
+CLT5          0.560         
+CLT6  0.994                 
+CLT7  0.945                 
+
+               Factor1 Factor2 Factor3
+SS loadings      5.231   0.813   0.146
+Proportion Var   0.747   0.116   0.021
+Cumulative Var   0.747   0.864   0.884
+
+Test of the hypothesis that 3 factors are sufficient.
+The chi square statistic is 6.61 on 3 degrees of freedom.
+The p-value is 0.0854 
+
+
+Järeldus:
+
+Tabelist Uniquenesses näeme, et kõige paremini alluvad faktoriteks jagamisele 1., 2. ja 6. sensor. Kõige omapärasemaks on 5. sensor.
+Tabelist Loadings ilmneb, et Factor1 alla sobivad enim 1., 2., 3., 4., 6. ja 7. sensor. Factor2 alla sobib kõige paremini 5. sensor. 
+Kolmandast tabelist selgub, et Factor1 kirjeldab tunnuste hajuvust 74.7%, Factor2 11.6% ja Factor3 2.1%.
+Kokku on seega 3 faktori kirjeldusvõime 88,4%.
+Järelikult võib väita, et kõik peale 5. sensori mõõdavad ühte asja ning 5. sensor midagi muud.
+
+
+
+

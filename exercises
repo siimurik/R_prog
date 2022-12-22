@@ -1,0 +1,46 @@
+Exercise 1
+Set a seed to 123 and plot a histogram of 1000 draws from a normal distribution with mean 10, standard deviation 2.
+set.seed(123)
+normal_draws <- rnorm(1000, mean = 10, sd = 2)
+hist(normal_draws)
+
+Exercise 2
+Using a QQ plot. Assess the normality of your previously simulated draws.
+qqnorm(normal_draws)
+qqline(normal_draws)
+
+Exercise 3
+Using a t-test, test for a difference in means between your samples. 1000 samples of the Student’s t-distribution, 10 degrees of freedom, and a delta value of 9. 
+Report on your p-value and its significance at the 5% level.
+y <- rt(1000, df = 10, ncp = 9)
+means_t_test <- t.test(normal_draws, y)
+means_t_test$p.value
+[1] 0.03064702
+
+Exercise 4
+Rewrite your t-test, testing now if your normal samples have a greater mean than your samples from the Student’s t-distribution. Report on your new p-value.
+greater_test <- t.test(normal_draws, y, alternative = "greater")
+greater_test$p.value
+[1] 0.01532351
+//Ehk
+H0: normal samples have greater mean than samples from the Student's t-distribution					//väide mida üritame ümber lükata, kuid eeldame, et on hetkel tõene
+H1: normal samles do not have a greater mean than the samples from the Student's t-distribution 	//väide, mida üritame tõestada; antud juhul saame H0 ümber lükata ja öelda, et H1 on tõene (sest p-väärtus on väiksem kui 0.05)
+
+Exercise 5
+Putting these skills together now, calculate a two-sided t-test of equal means from two normal distributions. 
+The first of mean 1, standard deviation 0.5, the second of mean 0.9, a standard deviation of 1. Hint: A function may become useful here.
+test_func <- function(x, y){
+  t_test <- t.test(x, y)
+  return(t_test$p.value)
+}
+test_func(x = rnorm(100, mean = 1, sd = 0.5), y = rnorm(100, mean = 0.9, sd = 1))
+[1] 0.861565
+[1] 0.01400303
+[1] 0.4811302		//dafuq is it then. answ in next excercise
+
+Exercise 6
+Replicate this t-test 1000 times and test for a standard uniform distribution, using a QQ plot.
+p_reps <- replicate(1000, test_func(x = rnorm(100, mean = 1, sd = 0.5), y = rnorm(100, mean = 0.9, sd = 1)))
+qqplot(p_reps, runif(1000))
+abline(0,1)
+

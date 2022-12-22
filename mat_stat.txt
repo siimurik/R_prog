@@ -1,0 +1,100 @@
+Jaotuste simuleerimine
+
+x=0.1*exp(100)
+Eksponentajotus parameetriga 10
+
+y=2*rnorm(100)+1
+Normaaljaotus standardhälbega 2 ja keskväärtusega 1
+
+z=rbinom(100,100,0.4)
+binoomjaotus (katsete hulk, valimi maht, tõenäosus)
+
+u=rpois(100, 1.5)
+poisson jaotus parameetriga 1.5
+
+Kvantiilide leidmine
+quantile(y,0.95)
+juhusliku suuruse Y 0.95-kvantiil
+
+keskväärtuse leidmine
+mean(y)
+
+dispersiooni leidmine 
+var(y)
+
+R paketi installeerimine
+install.packages("MASS")
+e1071
+library(e1071)
+Pakett e1071 võimaldab leida näiteks assümmeetriat ja järsakust
+
+assümmeetria
+skewness(x)
+
+järsakus
+kurtosis(x)
+
+Korrelatsioon ja Kovariatsioon 
+x=c(11, 0.7, 5.4, 6.7, 9, 12, 3.3, 8, 7.5, 7)
+length(a)
+
+y=5+2*x+4*rnorm(10)
+z=3+5*y+5*rnorm(10)
+
+maatriksi moodustamine
+u = cbind(x,y,z)
+
+Korrelatsioonimaatriks
+cor(u)
+          x         y         z
+x 1.0000000 0.8951835 0.8827975
+y 0.8951835 1.0000000 0.9959440
+z 0.8827975 0.9959440 1.0000000
+
+Pöördmaatriks
+solve(cor(u))
+           x          y           z
+x   5.286033  -10.42557    5.716784
+y -10.425567  144.08751 -134.299433
+z   5.716784 -134.29943  129.707954
+
+omaväärtus ka omavektorid
+eigen(cor(u)
+eigen() decomposition
+$values
+[1] 2.850232143 0.146089839 0.003678018
+
+$vectors
+          [,1]       [,2]        [,3]
+[1,] 0.5620288  0.8259940  0.04309869
+[2,] 0.5860821 -0.3609353 -0.72541947
+[3,] 0.5836363 -0.4329660  0.68695640
+
+Statistilised testid
+Studenti t-test
+ül 127
+audi=c(103,102.6,97.4,96.8,99.8,95.2,104.1,88.4,100.2,91.5)
+t.test(audi,alternative="less",mu=100)
+t-test H0: mu=100, H1: mu<100
+
+enne=c(17.5,17.8,17.4,17.5,17.7)
+peale=c(17,17,17.4,17.0,17.3)
+t.test(enne, peale, paired=TRUE)
+t.test H0:enne=peale, H1:enne<>peale
+
+Jaotuse sobivuse test R baasil
+käsk chisq.test(x=nimi1,p=nimi2)
+x-empiiriline sagedus, p-teoreetiline tõenäosus
+> emp=c(40,20,11,7)
+> teor=c(0.5,0.3,0.1,0.1)
+> chisq.test(x=emp,p=teor)
+
+Fisheri f-test
+var.test(x,y)
+
+Ül. Pingid n shit
+
+pink1=c(1.18,1.10,1.12,1.14,1.15,1.25,1.36,1.4,1.42)
+pink2=c(1.11,1.12,1.18,1.22, 1.33,1.35,1.36,1.38)
+var.test(pink1,pink2)
+H0: pinkide 1 ja 2 dispersioonid on võrdsed, H1: pinkide 1 ja 2 dispersioonid on erinevad
