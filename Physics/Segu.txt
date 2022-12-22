@@ -1,0 +1,9 @@
+Jaotuste segu R
+
+u=0
+x=0
+alpha=0.3
+for (i in 1:1000) {
+u[i]=runif(1) 
+if (u[i]<=alpha) {x[i]=1+rnorm(1)} 
+else {x[i]=rexp(1)}}

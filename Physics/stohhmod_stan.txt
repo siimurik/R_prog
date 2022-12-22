@@ -1,0 +1,32 @@
+mudel='
+data{
+int<lower=0>N;
+int<lower=0,upper=1> y[N];
+}
+parameters {
+real<lower=0,upper=1> theta;
+}
+model
+{theta~beta(1,0.5);
+y~bernoulli(theta);
+}
+'
+andmed=list(N=10,y=c(1,0,0,0,1,1,1,1,0,1))
+fit=stan(model_code=mudel,data=andmed,iter=500,chains=1)
+
+mudel='
+data{
+int<lower=0> N;
+real<lower=0> y[N];
+}
+parameters {
+real<lower=0> mu;
+}
+model
+{mu~normal(17,1);
+y~normal(mu,1.5);
+}
+'
+
+andmed=list(N=31, y=c(15.1,15.3,15.7,18.1,17.6,17.5,17.3,14.1,14.2,13.9,14.9,15.6,16.1,17.4,17.9,18.2,19.3,20.1,20.5,21.0,18.6,17.9,17.2,16.1,16.2,15.9,15.5,17.1,17.8,17.9,18.0))
+fit=stan(model_code=mudel,data=andmed,iter=500,chains=1)

@@ -1,0 +1,27 @@
+mudel='data {
+int<lower=0> N;
+int<lower=0> x[N];
+real<lower=0> t[N];
+}
+parameters {
+real<lower=0> theta[N];
+real<lower=0> alpha;
+real<lower=0> beta;
+}
+transformed parameters
+{
+real<lower=0> lambda[N];
+for (i in 1:N) lambda[i]<-theta[i]*t[i];
+}
+model {
+theta~gamma(alpha,beta);
+alpha~exponential(1);
+beta~gamma(0.1,1);
+x~poisson(lambda);
+}
+'
+
+andmed=list(N=10,t = c(94.3, 15.7, 62.9, 126, 5.24, 31.4, 1.05, 1.05, 2.1, 10.5),
+	     x = c(5, 1, 5, 14, 3, 19, 1, 1, 4, 22))
+
+valjund=stan(model_code=mudel,data=andmed,iter=500,chains=1)

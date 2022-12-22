@@ -1,0 +1,13 @@
+x=c(140)
+andmed=cbind(x)
+N=nrow(andmed)
+data=list("N","x")
+
+model 
+for (i in 1:N) {
+mu[i]~dnorm(100,15)
+x[i]~dnorm(mu[i],15)
+}
+
+
+

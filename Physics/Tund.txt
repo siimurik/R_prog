@@ -1,0 +1,1 @@
+lin.sim=bugs(data,inits,model.file="E:\\Physics\\Pumbad.txt",parameters=c("alpha","beta","theta"),n.chains=2,n.iter=1000,debug=TRUE)

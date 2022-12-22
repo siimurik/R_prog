@@ -1,0 +1,19 @@
+a=1
+kesk=0
+shalve=2
+
+        raha=vector("numeric", 1000)
+         x=10
+         raha[1] <- x
+         for (i in 2:1000) {
+                 muut=runif(1, -a, a)
+                uus=x + muut
+                 alpha=min(1, pnorm(uus,kesk,shalve)/pnorm(x,kesk,shalve))
+                 u <- runif(1)
+                 if (u < alpha) 
+                         {x=uus} else {x=x}
+                 raha[i]=x
+         }
+        
+ 
+plot(raha,type="o",xlab="Iteratsioonid")

@@ -1,0 +1,8 @@
+model
+{
+for(i in 1:N) {
+x[i]~dnorm(mu,225)
+}
+mu~dnorm(100,tau)
+tau~dgamma(10,2)
+}

@@ -1,0 +1,13 @@
+d=dist(andmed)
+fit=hclust(d,method="complete")
+fit
+
+Call:
+hclust(d = d, method = "complete")
+
+Cluster method   : complete 
+Distance         : euclidean 
+Number of objects: 156 
+
+plot(fit)
+d=mahalanobis(andmed, colMeans(andmed),cov) 

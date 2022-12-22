@@ -1,0 +1,4 @@
+for (i in 1:1000) {
+u=runif(1)
+if (u<0.4) {y[i]=rexp(1)} else {y[i]=rnorm(1)}
+}

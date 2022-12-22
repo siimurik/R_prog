@@ -1,0 +1,6 @@
+andm=cbind(DIP,CY)
+N=nrow(andm)
+xbar=3
+data=list("DIP","CY","xbar","N")
+
+inits=function(){list(apha=rnorm(1.0,1.0e-6),beta=rnorm(1.0,1.0e-6),tau=rgamm(1,0,0.001))}
